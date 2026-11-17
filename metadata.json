@@ -1,0 +1,6 @@
+{
+  "name": "Educore - Platform E-Learning Cerdas & Adaptif",
+  "description": "Platform e-learning all-in-one dari PT Educore Nusantara Digital dengan AdaptiMatch AI, Dapur Belajar animasi interaktif, Live Tutor kelas online, dan Smart Tryout SNBT berbobot IRT.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,311 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --cerdix-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    scroll-behavior: smooth;
+    scroll-padding-top: 96px;
+  }
+
+  body {
+    overflow-x: clip;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ea580c;
+}
+
+/* =========================================================
+   Keyframes (GPU-composited: transform & opacity only)
+   ========================================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes wordUp {
+  0% {
+    opacity: 0;
+    transform: translateY(108%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introIn {
+  0% {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -10px, 0);
+  }
+}
+
+@keyframes floatDrift {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(24px, -14px, 0) scale(1.04);
+  }
+}
+
+@keyframes floatDriftReverse {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-24px, 12px, 0) scale(1.05);
+  }
+}
+
+@keyframes cueDrop {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(340%);
+    opacity: 0;
+  }
+}
+
+@keyframes marqueeScroll {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes shimmerSweep {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  100% {
+    transform: translateX(240%) skewX(-18deg);
+  }
+}
+
+/* =========================================================
+   Utility Animation Classes
+   ========================================================= */
+.animate-fadeIn {
+  animation: fadeIn 0.25s var(--cerdix-ease) both;
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.35s var(--cerdix-ease) both;
+}
+
+.animate-float-gentle {
+  animation: floatGentle 6s ease-in-out infinite;
+}
+
+.animate-float-drift {
+  animation: floatDrift 16s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-drift-reverse {
+  animation: floatDriftReverse 20s ease-in-out infinite;
+  will-change: transform;
+}
+
+.hero-word-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+  padding: 0 0.03em 0.14em;
+  margin-bottom: -0.14em;
+}
+
+.hero-word {
+  display: inline-block;
+  animation: wordUp 0.95s var(--cerdix-ease) both;
+  animation-delay: calc(0.08s + var(--word-i, 0) * 0.09s);
+}
+
+.hero-stagger {
+  animation: introIn 0.85s var(--cerdix-ease) both;
+  animation-delay: var(--intro-delay, 0.2s);
+}
+
+/* Scroll Cue Bar (inspired by Sora Cloud) */
+.cerdix-scroll-cue-line {
+  position: relative;
+  width: 2px;
+  height: 36px;
+  border-radius: 9999px;
+  background: rgba(234, 88, 12, 0.18);
+  overflow: hidden;
+}
+
+.cerdix-scroll-cue-line::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2px;
+  height: 12px;
+  border-radius: 9999px;
+  background: #ea580c;
+  animation: cueDrop 2s cubic-bezier(0.2, 0.7, 0.2, 1) infinite;
+}
+
+/* Architectural dot-matrix backdrop */
+.cerdix-dot-grid {
+  background-image: radial-gradient(rgba(234, 88, 12, 0.14) 1.25px, transparent 1.25px);
+  background-size: 26px 26px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 42%, #000 35%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 42%, #000 35%, transparent 100%);
+}
+
+/* Seamless Marquee */
+.cerdix-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.cerdix-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 42s linear infinite;
+}
+
+.cerdix-marquee:hover .cerdix-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Subtle CTA Shimmer Highlight */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  width: 45%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.48),
+    transparent
+  );
+  transform: translateX(-140%) skewX(-18deg);
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::after {
+  animation: shimmerSweep 0.85s ease forwards;
+}
+
+/* =========================================================
+   Scroll Reveal System
+   ========================================================= */
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 22px, 0);
+  transition:
+    opacity 0.65s var(--cerdix-ease) var(--reveal-delay, 0s),
+    transform 0.65s var(--cerdix-ease) var(--reveal-delay, 0s);
+}
+
+.reveal.reveal-left {
+  transform: translate3d(-24px, 0, 0);
+}
+
+.reveal.reveal-right {
+  transform: translate3d(24px, 0, 0);
+}
+
+.reveal.reveal-scale {
+  transform: scale(0.96) translate3d(0, 14px, 0);
+}
+
+.reveal.in {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Accessibility: honor reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .cerdix-marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+}
